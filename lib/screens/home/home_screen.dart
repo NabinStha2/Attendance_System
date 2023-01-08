@@ -41,11 +41,11 @@ class HomeScreen extends StatelessWidget {
                     __.darkTheme = val;
                     themeBox?.put("isDarkTheme", val);
                   },
-                  activeThumbImage: const NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUWQGvPikAtIf0hruaq1H1gBNhrs25XnXVwQq2T-5LzVSevpuQ6mfX4TkRuDQrXJSvVak&usqp=CAU",
+                  activeThumbImage: const AssetImage(
+                    "assets/images/dark_theme.png",
                   ),
-                  inactiveThumbImage: const NetworkImage(
-                    "https://cdn0.iconfinder.com/data/icons/multimedia-line-30px/30/sun_light_mode_day-512.png",
+                  inactiveThumbImage: const AssetImage(
+                    "assets/images/light_theme.png",
                   ),
                 ),
               ),

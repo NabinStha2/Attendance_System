@@ -2,6 +2,7 @@ import 'package:attendance_system/core/app/theme.dart';
 import 'package:attendance_system/provider/home_provider.dart';
 import 'package:attendance_system/provider/theme_provider.dart';
 import 'package:attendance_system/screens/home/home_screen.dart';
+import 'package:attendance_system/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: title,
             theme: CustomTheme.themeData(_.isDarkTheme, context),
-            home: const HomeScreen(),
+            home: const SplashScreen(),
           );
         },
       ),

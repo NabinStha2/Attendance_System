@@ -2,9 +2,9 @@
     package="com.example.attendance_system">
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
    <application
-        android:label="attendance_system"
+        android:label="Time Attendance"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/attendance_logo">
         <activity
             android:name=".MainActivity"
             android:exported="true"
