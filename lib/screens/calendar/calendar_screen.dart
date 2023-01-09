@@ -1,15 +1,20 @@
+import 'dart:io';
+
 import 'package:attendance_system/provider/theme_provider.dart';
 import 'package:attendance_system/widgets/show_events_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:attendance_system/core/app/colors.dart';
 
 import '../../core/app/states.dart';
+import '../../utils/export_datagrid.dart';
 import '../../utils/get_events.dart';
 import '../../utils/get_time.dart';
+import '../datagrid.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({
@@ -33,10 +38,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
     selectedDay = focusedDay;
 
-    selectedDateUTC = DateTime.utc(selectedDay!.year, selectedDay!.month, selectedDay!.day);
-    focusedDateUTC = DateTime.utc(focusedDay.year, focusedDay.month, focusedDay.day);
-    selectedEvents = ValueNotifier(Events.getEventsForDay(selectedDateUTC ?? focusedDateUTC!));
-    focusedDateUTC = DateTime.utc(focusedDay.year, focusedDay.month, focusedDay.day);
+    selectedDateUTC =
+        DateTime.utc(selectedDay!.year, selectedDay!.month, selectedDay!.day);
+    focusedDateUTC =
+        DateTime.utc(focusedDay.year, focusedDay.month, focusedDay.day);
+    selectedEvents = ValueNotifier(
+        Events.getEventsForDay(selectedDateUTC ?? focusedDateUTC!));
+    focusedDateUTC =
+        DateTime.utc(focusedDay.year, focusedDay.month, focusedDay.day);
     GetTime().getTimeData();
   }
 
@@ -55,18 +64,40 @@ class _CalendarScreenState extends State<CalendarScreen> {
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Range Toggle ${rangeSelectionMode == RangeSelectionMode.toggledOn ? "on" : "off"}"),
-                Switch.adaptive(
-                  value: rangeSelectionMode == RangeSelectionMode.toggledOn,
-                  activeColor: AColors.kPrimaryColor,
-                  onChanged: ((value) {
-                    setState(() {
-                      rangeSelectionMode =
-                          rangeSelectionMode == RangeSelectionMode.toggledOn ? RangeSelectionMode.toggledOff : RangeSelectionMode.toggledOn;
-                    });
-                  }),
+                Row(
+                  children: [
+                    Text(
+                        "Range Toggle ${rangeSelectionMode == RangeSelectionMode.toggledOn ? "on" : "off"}"),
+                    Switch.adaptive(
+                      value: rangeSelectionMode == RangeSelectionMode.toggledOn,
+                      activeColor: AColors.kPrimaryColor,
+                      onChanged: ((value) {
+                        setState(() {
+                          rangeSelectionMode =
+                              rangeSelectionMode == RangeSelectionMode.toggledOn
+                                  ? RangeSelectionMode.toggledOff
+                                  : RangeSelectionMode.toggledOn;
+                        });
+                      }),
+                    ),
+                  ],
                 ),
+                Container(
+                    margin: const EdgeInsets.all(12.0),
+                    child: const SizedBox(
+                      height: 40.0,
+                      child: ElevatedButton(
+                        onPressed: exportDataGridToExcel,
+                        child: Center(
+                          child: Text(
+                            'Export to Excel',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    )),
               ],
             ),
             const SizedBox(
@@ -98,16 +129,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   focusedDay = focusedDay;
                 },
                 headerStyle: HeaderStyle(
-                  titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20.0),
+                  titleTextStyle:
+                      const TextStyle(color: Colors.white, fontSize: 20.0),
                   decoration: BoxDecoration(
-                    color: _.isDarkTheme ? const Color(0xff779EE5) : AColors.kPrimaryColor,
+                    color: _.isDarkTheme
+                        ? const Color(0xff779EE5)
+                        : AColors.kPrimaryColor,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10),
                     ),
                   ),
                   formatButtonTextStyle: TextStyle(
-                    color: _.isDarkTheme ? const Color(0xff779EE5) : AColors.kPrimaryColor,
+                    color: _.isDarkTheme
+                        ? const Color(0xff779EE5)
+                        : AColors.kPrimaryColor,
                     fontSize: 16.0,
                   ),
                   formatButtonDecoration: const BoxDecoration(
@@ -159,7 +195,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   cellMargin: const EdgeInsets.all(8.0),
                   markerMargin: const EdgeInsets.only(top: 6.0, right: 1.5),
                   markerDecoration: BoxDecoration(
-                    color: _.isDarkTheme ? const Color(0xff779EE5) : AColors.kPrimaryColor,
+                    color: _.isDarkTheme
+                        ? const Color(0xff779EE5)
+                        : AColors.kPrimaryColor,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -177,7 +215,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     });
                   }
                   selectedEvents?.value = Events.getEventsForDay(selectedDays);
-                  showEventsModalBottomSheet(context: context, start: selectedDays);
+                  showEventsModalBottomSheet(
+                      context: context, start: selectedDays);
+                  employeeDataSource =
+                      EmployeeDataSource(data: selectedEvents?.value);
+                  setState(() {});
                 },
                 eventLoader: (day) {
                   return Events.getEventsForDay(day);
@@ -190,7 +232,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       child: Text(
                         DateFormat.E().format(day),
                         style: TextStyle(
-                          color: DateFormat.E().format(day) == "Sat" ? Colors.red : null,
+                          color: DateFormat.E().format(day) == "Sat"
+                              ? Colors.red
+                              : null,
                         ),
                       ),
                     );
@@ -225,20 +269,71 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     // rangeSelectionMode = RangeSelectionMode.toggledOn;
                   });
                   if (start != null && end != null) {
-                    selectedEvents?.value = Events.getEventsForRange(start, end);
+                    selectedEvents?.value =
+                        Events.getEventsForRange(start, end);
                     showEventsModalBottomSheet(
                       context: context,
                       start: start,
                       end: end,
                     );
+                    employeeDataSource =
+                        EmployeeDataSource(data: selectedEvents?.value);
                   } else if (start != null) {
                     selectedEvents?.value = Events.getEventsForDay(start);
+                    employeeDataSource =
+                        EmployeeDataSource(data: selectedEvents?.value);
                   } else if (end != null) {
                     selectedEvents?.value = Events.getEventsForDay(end);
+                    employeeDataSource =
+                        EmployeeDataSource(data: selectedEvents?.value);
                   }
+                  setState(() {});
                 },
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            employeeDataSource != null
+                ? SfDataGrid(
+                    key: sfDataGridKey,
+                    source: employeeDataSource!,
+                    gridLinesVisibility: GridLinesVisibility.both,
+                    headerGridLinesVisibility: GridLinesVisibility.both,
+                    columnWidthMode: ColumnWidthMode.fitByColumnName,
+                    allowSorting: true,
+                    columns: <GridColumn>[
+                      GridColumn(
+                          columnName: 'Day',
+                          columnWidthMode: ColumnWidthMode.fitByColumnName,
+                          label: Container(
+                              padding: const EdgeInsets.all(16.0),
+                              alignment: Alignment.centerRight,
+                              child: const Text(
+                                'Day',
+                              ))),
+                      GridColumn(
+                          columnName: 'Weekday',
+                          label: Container(
+                              padding: const EdgeInsets.all(16.0),
+                              alignment: Alignment.center,
+                              child: const Text('Weekday'))),
+                      GridColumn(
+                          columnName: 'Time',
+                          columnWidthMode: ColumnWidthMode.fitByCellValue,
+                          label: Container(
+                              padding: const EdgeInsets.all(16.0),
+                              alignment: Alignment.center,
+                              child: const Text('Time'))),
+                      GridColumn(
+                          columnName: 'Total working',
+                          label: Container(
+                              padding: const EdgeInsets.all(16.0),
+                              alignment: Alignment.center,
+                              child: const Text('Total working'))),
+                    ],
+                  )
+                : Container(),
           ],
         ),
       ),
