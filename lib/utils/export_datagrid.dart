@@ -12,8 +12,7 @@ Future<void> exportDataGridToExcel() async {
   //     'Attendance${DateTime.now().day}${DateTime.now().millisecond}.xlsx');
   final Workbook workbook = Workbook();
   final Worksheet worksheet = workbook.worksheets[0];
-  sfDataGridKey.currentState!.exportToExcelWorksheet(worksheet);
+  sfDataGridKey.currentState?.exportToExcelWorksheet(worksheet);
   final List<int> bytes = workbook.saveAsStream();
-  await saveAndLaunchFile(bytes,
-      'Attendance${DateTime.now().day}${DateTime.now().millisecond}.xlsx');
+  await saveAndLaunchFile(bytes, 'Attendance${DateTime.now().day}${DateTime.now().second}${DateTime.now().millisecond}.xlsx');
 }

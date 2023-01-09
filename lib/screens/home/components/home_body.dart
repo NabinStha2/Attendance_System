@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 import '../../../core/app/colors.dart';
 import '../../../core/app/states.dart';
 import '../../../services/local_auth.dart';
+import '../../../utils/datagrid.dart';
+import '../../../utils/get_events.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -189,6 +191,8 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
                             }
                           }
                           GetTime().getTimeData();
+                          selectedEvents?.value = Events.getEventsForDay(dateTime);
+                          attendanceDataSource = AttendanceDataSource(data: selectedEvents?.value);
                         }
                       }
                     },

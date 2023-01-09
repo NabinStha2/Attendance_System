@@ -1,6 +1,7 @@
 import 'package:attendance_system/core/app/states.dart';
 import 'package:attendance_system/provider/home_provider.dart';
 import 'package:attendance_system/screens/calendar/calendar_screen.dart';
+import 'package:attendance_system/screens/datagrid/datagrid_screen.dart';
 import 'package:attendance_system/screens/home/components/home_body.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,10 @@ class HomeScreen extends StatelessWidget {
               BottomNavigationBarItem(
                 label: "Attendance",
                 icon: Icon(Icons.calendar_month_rounded),
+              ),
+              BottomNavigationBarItem(
+                label: "DataGrid",
+                icon: Icon(Icons.table_view_rounded),
               ),
             ],
           ),
@@ -56,6 +61,7 @@ class HomeScreen extends StatelessWidget {
             children: const [
               HomeBody(),
               CalendarScreen(),
+              DataGridScreen(),
             ],
           ),
         ),

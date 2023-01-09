@@ -9,6 +9,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../core/app/colors.dart';
 import '../core/app/states.dart';
 import '../core/development/console.dart';
+import '../utils/datagrid.dart';
 import '../utils/get_events.dart';
 
 void showEventsModalBottomSheet({
@@ -376,7 +377,7 @@ void showEventsModalBottomSheet({
                                                       right: 0,
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                          consolelog("dateTime :: ${value[index]["date"]}");
+                                                          // consolelog("dateTime :: ${value[index]["date"]}");
                                                           showDialog(
                                                               barrierDismissible: false,
                                                               barrierColor: Colors.black.withOpacity(0.7),
@@ -439,6 +440,9 @@ void showEventsModalBottomSheet({
                                                                                   }
                                                                                   // consolelog(attendanceModelBox?.get(e.key));
                                                                                 });
+                                                                                attendanceDataSource =
+                                                                                    AttendanceDataSource(data: selectedEvents?.value);
+
                                                                                 Navigator.pop(context);
                                                                               },
                                                                               child: Text(

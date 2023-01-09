@@ -6,7 +6,6 @@ import 'package:open_file/open_file.dart' as open_file;
 import 'package:path_provider/path_provider.dart';
 
 Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
-  // String? path;
   Directory? directory;
   File saveFile;
   directory = await getExternalStorageDirectory();
@@ -26,24 +25,14 @@ Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
     }
   }
 
-  consolelog(directory);
-
   if (await directory?.exists() == false) {
-    consolelog(await directory?.exists());
     await directory?.create(recursive: true);
   }
 
-  // if (Platform.isAndroid || Platform.isIOS) {
-  //   final Directory directory =
-  //       await path_provider.getApplicationSupportDirectory();
-  //   path = directory.path;
-  // }
-  // final String fileLocation = '$path/$fileName';
-  // final File file = File(fileLocation);
-
   saveFile = File("${directory?.path}/$fileName");
   await saveFile.writeAsBytes(bytes, flush: true);
-  if (Platform.isAndroid || Platform.isIOS) {
+  consolelog(saveFile);
+  if (Platform.isAndroid) {
     await open_file.OpenFile.open("${directory?.path}/$fileName");
   }
 }
