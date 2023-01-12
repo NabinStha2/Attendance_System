@@ -85,12 +85,12 @@ class _DataGridScreenState extends State<DataGridScreen> {
                             alignment: Alignment.center,
                             child: const Text('Working hour'))),
                     GridColumn(
-                        columnName: 'Is Paid',
+                        columnName: 'Paid',
                         columnWidthMode: ColumnWidthMode.auto,
                         label: Container(
                             padding: const EdgeInsets.all(4.0),
                             alignment: Alignment.center,
-                            child: const Text('Is Paid'))),
+                            child: const Text('Paid'))),
                   ],
                 ),
               ),

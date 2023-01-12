@@ -30,7 +30,7 @@ class AttendanceDataSource extends DataGridSource {
                       .split(".")[0]
                   : "-"),
           DataGridCell<String>(
-              columnName: 'Is Paid',
+              columnName: 'Paid',
               value: e["isPaid"] == null
                   ? "Yes"
                   : e["isPaid"] == true
