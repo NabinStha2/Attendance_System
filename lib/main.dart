@@ -1,7 +1,6 @@
 import 'package:attendance_system/core/app/theme.dart';
 import 'package:attendance_system/provider/home_provider.dart';
 import 'package:attendance_system/provider/theme_provider.dart';
-import 'package:attendance_system/screens/home/home_screen.dart';
 import 'package:attendance_system/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,7 +32,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()..darkTheme = themeBox?.get("isDarkTheme") ?? false),
+        ChangeNotifierProvider<ThemeProvider>(
+            create: (_) => ThemeProvider()
+              ..darkTheme = themeBox?.get("isDarkTheme") ?? false),
         ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
       ],
       child: Consumer<ThemeProvider>(

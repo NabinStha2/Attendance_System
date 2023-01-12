@@ -33,7 +33,9 @@ class _DataGridScreenState extends State<DataGridScreen> {
                   child: SizedBox(
                     height: 40.0,
                     child: ElevatedButton(
-                      onPressed: attendanceDataSource.attendanceData.isNotEmpty ? exportDataGridToExcel : null,
+                      onPressed: attendanceDataSource.attendanceData.isNotEmpty
+                          ? exportDataGridToExcel
+                          : null,
                       child: const Center(
                         child: Text(
                           'Export to Excel',
@@ -56,18 +58,39 @@ class _DataGridScreenState extends State<DataGridScreen> {
                   columns: <GridColumn>[
                     GridColumn(
                         columnName: 'Date',
-                        columnWidthMode: ColumnWidthMode.fitByCellValue,
-                        label: Container(padding: const EdgeInsets.all(4.0), alignment: Alignment.center, child: const Text('Date'))),
+                        columnWidthMode: ColumnWidthMode.auto,
+                        label: Container(
+                            padding: const EdgeInsets.all(4.0),
+                            alignment: Alignment.center,
+                            child: const Text('Date'))),
                     GridColumn(
                         columnName: 'Weekday',
-                        label: Container(padding: const EdgeInsets.all(4.0), alignment: Alignment.center, child: const Text('Weekday'))),
+                        columnWidthMode: ColumnWidthMode.auto,
+                        label: Container(
+                            padding: const EdgeInsets.all(4.0),
+                            alignment: Alignment.center,
+                            child: const Text('Weekday'))),
                     GridColumn(
                         columnName: 'Time',
-                        columnWidthMode: ColumnWidthMode.fitByCellValue,
-                        label: Container(padding: const EdgeInsets.all(4.0), alignment: Alignment.center, child: const Text('Time'))),
+                        columnWidthMode: ColumnWidthMode.auto,
+                        label: Container(
+                            padding: const EdgeInsets.all(4.0),
+                            alignment: Alignment.center,
+                            child: const Text('Time'))),
                     GridColumn(
                         columnName: 'Working hour',
-                        label: Container(padding: const EdgeInsets.all(4.0), alignment: Alignment.center, child: const Text(' Working hour'))),
+                        columnWidthMode: ColumnWidthMode.auto,
+                        label: Container(
+                            padding: const EdgeInsets.all(4.0),
+                            alignment: Alignment.center,
+                            child: const Text('Working hour'))),
+                    GridColumn(
+                        columnName: 'Is Paid',
+                        columnWidthMode: ColumnWidthMode.auto,
+                        label: Container(
+                            padding: const EdgeInsets.all(4.0),
+                            alignment: Alignment.center,
+                            child: const Text('Is Paid'))),
                   ],
                 ),
               ),

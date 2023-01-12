@@ -66,9 +66,16 @@ void showEventsModalBottomSheet({
                                   rowChoiceOptions(
                                     title: "Holiday",
                                     iconText: "Paid",
-                                    isIcon: attendanceModelBox?.containsKey(start.toString()) == true,
-                                    isPaid: attendanceModelBox?.containsKey(start.toString()) == true &&
-                                        attendanceModelBox?.get(start.toString())[0]["isPaid"] == true,
+                                    isIcon: attendanceModelBox
+                                            ?.containsKey(start.toString()) ==
+                                        true,
+                                    isPaid: attendanceModelBox?.containsKey(
+                                                start.toString()) ==
+                                            true &&
+                                        attendanceModelBox
+                                                    ?.get(start.toString())[0]
+                                                ["isPaid"] ==
+                                            true,
                                   ),
                                   const SizedBox(
                                     height: 20,
@@ -76,9 +83,16 @@ void showEventsModalBottomSheet({
                                   rowChoiceOptions(
                                     title: "Leave",
                                     iconText: "Not Paid",
-                                    isIcon: attendanceModelBox?.containsKey(start.toString()) == true,
-                                    isPaid: attendanceModelBox?.containsKey(start.toString()) == true &&
-                                        attendanceModelBox?.get(start.toString())[0]["isPaid"] == false,
+                                    isIcon: attendanceModelBox
+                                            ?.containsKey(start.toString()) ==
+                                        true,
+                                    isPaid: attendanceModelBox?.containsKey(
+                                                start.toString()) ==
+                                            true &&
+                                        attendanceModelBox
+                                                    ?.get(start.toString())[0]
+                                                ["isPaid"] ==
+                                            false,
                                   ),
                                 ],
                               )
@@ -96,7 +110,8 @@ void showEventsModalBottomSheet({
                                     height: 20,
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
                                         children: [
@@ -106,12 +121,17 @@ void showEventsModalBottomSheet({
                                           ),
                                           Text(
                                             DateFormat('y:M:d').format(start),
-                                            style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey.shade600),
                                           ),
                                           end != null
                                               ? Text(
                                                   " - ${DateFormat('y:M:d').format(end)}",
-                                                  style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color:
+                                                          Colors.grey.shade600),
                                                 )
                                               : Container(),
                                         ],
@@ -133,18 +153,28 @@ void showEventsModalBottomSheet({
                                                       Duration? value2;
 
                                                       if (value is! Duration) {
-                                                        if (value["isPaid"] == null) {
-                                                          value1 = value["endTime"].difference(value["startTime"]);
+                                                        if (value["isPaid"] ==
+                                                            null) {
+                                                          value1 = value[
+                                                                  "endTime"]
+                                                              .difference(value[
+                                                                  "startTime"]);
                                                         } else {
-                                                          value1 = const Duration();
+                                                          value1 =
+                                                              const Duration();
                                                         }
                                                       } else {
                                                         value1 = value;
                                                       }
-                                                      if (element["isPaid"] == null) {
-                                                        value2 = element["endTime"].difference(element["startTime"]);
+                                                      if (element["isPaid"] ==
+                                                          null) {
+                                                        value2 = element[
+                                                                "endTime"]
+                                                            .difference(element[
+                                                                "startTime"]);
                                                       } else {
-                                                        value2 = const Duration();
+                                                        value2 =
+                                                            const Duration();
                                                       }
 
                                                       // if (value is! Duration &&
@@ -176,8 +206,14 @@ void showEventsModalBottomSheet({
                                                     })
                                                     .toString()
                                                     .split(".")[0]
-                                                : value[0]["endTime"].difference(value[0]["startTime"]).toString().split(".")[0],
-                                            style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                                                : value[0]["endTime"]
+                                                    .difference(
+                                                        value[0]["startTime"])
+                                                    .toString()
+                                                    .split(".")[0],
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey.shade600),
                                           ),
                                         ],
                                       ),
@@ -202,18 +238,25 @@ void showEventsModalBottomSheet({
                                       // consolelog(
                                       //     "date :: ${value[index]["date"]} :::: startTime : ${value[index]["startTime"]} :::: endTime : ${value[index]["endTime"]}");
                                       return Padding(
-                                        padding: const EdgeInsets.only(bottom: 10.0),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10.0),
                                         child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
-                                            if (value[index]["isPaid"] != null) ...[
+                                            if (value[index]["isPaid"] !=
+                                                null) ...[
                                               Column(
                                                 children: [
                                                   Text(
-                                                    DateFormat.E().format(value[index]["date"]).toString(),
+                                                    DateFormat.E()
+                                                        .format(value[index]
+                                                            ["date"])
+                                                        .toString(),
                                                     style: const TextStyle(
                                                       fontSize: 16.0,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                     ),
                                                   ),
                                                   const SizedBox(
@@ -224,13 +267,22 @@ void showEventsModalBottomSheet({
                                                     width: 50,
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
-                                                      color: Provider.of<ThemeProvider>(context, listen: false).isDarkTheme
-                                                          ? const Color(0xff779EE5)
-                                                          : AColors.kPrimaryColor,
+                                                      color: Provider.of<
+                                                                      ThemeProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .isDarkTheme
+                                                          ? const Color(
+                                                              0xff779EE5)
+                                                          : AColors
+                                                              .kPrimaryColor,
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        DateFormat.d().format(value[index]["date"]).toString(),
+                                                        DateFormat.d()
+                                                            .format(value[index]
+                                                                ["date"])
+                                                            .toString(),
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                         ),
@@ -243,10 +295,14 @@ void showEventsModalBottomSheet({
                                               Column(
                                                 children: [
                                                   Text(
-                                                    DateFormat.E().format(value[index]["startTime"]).toString(),
+                                                    DateFormat.E()
+                                                        .format(value[index]
+                                                            ["startTime"])
+                                                        .toString(),
                                                     style: const TextStyle(
                                                       fontSize: 16.0,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                     ),
                                                   ),
                                                   const SizedBox(
@@ -257,13 +313,22 @@ void showEventsModalBottomSheet({
                                                     width: 50,
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
-                                                      color: Provider.of<ThemeProvider>(context, listen: false).isDarkTheme
-                                                          ? const Color(0xff779EE5)
-                                                          : AColors.kPrimaryColor,
+                                                      color: Provider.of<
+                                                                      ThemeProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .isDarkTheme
+                                                          ? const Color(
+                                                              0xff779EE5)
+                                                          : AColors
+                                                              .kPrimaryColor,
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        DateFormat.d().format(value[index]["startTime"]).toString(),
+                                                        DateFormat.d()
+                                                            .format(value[index]
+                                                                ["startTime"])
+                                                            .toString(),
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                         ),
@@ -276,17 +341,36 @@ void showEventsModalBottomSheet({
                                             const SizedBox(
                                               width: 10,
                                             ),
-                                            if (value[index]["isPaid"] != null) ...[
+                                            if (value[index]["isPaid"] !=
+                                                null) ...[
                                               Flexible(
                                                 child: Column(
-                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   children: [
                                                     rowChoiceOptions(
                                                       title: "Holiday",
                                                       iconText: "Paid",
-                                                      isIcon: attendanceModelBox?.containsKey(value[index]["date"].toString()) == true,
-                                                      isPaid: attendanceModelBox?.containsKey(value[index]["date"].toString()) == true &&
-                                                          attendanceModelBox?.get(value[index]["date"].toString())[0]["isPaid"] == true,
+                                                      isIcon: attendanceModelBox
+                                                              ?.containsKey(value[
+                                                                          index]
+                                                                      ["date"]
+                                                                  .toString()) ==
+                                                          true,
+                                                      isPaid: attendanceModelBox
+                                                                  ?.containsKey(
+                                                                      value[index]
+                                                                              [
+                                                                              "date"]
+                                                                          .toString()) ==
+                                                              true &&
+                                                          attendanceModelBox?.get(
+                                                                      value[index]
+                                                                              [
+                                                                              "date"]
+                                                                          .toString())[
+                                                                  0]["isPaid"] ==
+                                                              true,
                                                     ),
                                                     const SizedBox(
                                                       height: 20,
@@ -294,9 +378,26 @@ void showEventsModalBottomSheet({
                                                     rowChoiceOptions(
                                                       title: "Leave",
                                                       iconText: "Not Paid",
-                                                      isIcon: attendanceModelBox?.containsKey(value[index]["date"].toString()) == true,
-                                                      isPaid: attendanceModelBox?.containsKey(value[index]["date"].toString()) == true &&
-                                                          attendanceModelBox?.get(value[index]["date"].toString())[0]["isPaid"] == false,
+                                                      isIcon: attendanceModelBox
+                                                              ?.containsKey(value[
+                                                                          index]
+                                                                      ["date"]
+                                                                  .toString()) ==
+                                                          true,
+                                                      isPaid: attendanceModelBox
+                                                                  ?.containsKey(
+                                                                      value[index]
+                                                                              [
+                                                                              "date"]
+                                                                          .toString()) ==
+                                                              true &&
+                                                          attendanceModelBox?.get(
+                                                                      value[index]
+                                                                              [
+                                                                              "date"]
+                                                                          .toString())[
+                                                                  0]["isPaid"] ==
+                                                              false,
                                                     ),
                                                   ],
                                                 ),
@@ -306,31 +407,49 @@ void showEventsModalBottomSheet({
                                                 child: Stack(
                                                   children: [
                                                     Padding(
-                                                      padding: const EdgeInsets.only(top: 10.0, right: 10.0),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 10.0,
+                                                              right: 10.0),
                                                       child: Container(
                                                         height: 100,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           border: Border.all(
                                                             width: 0.9,
-                                                            color: Colors.grey.shade500,
+                                                            color: Colors
+                                                                .grey.shade500,
                                                           ),
-                                                          borderRadius: BorderRadius.circular(10.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
                                                         ),
                                                         child: Column(
-                                                          mainAxisSize: MainAxisSize.min,
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
                                                           children: [
                                                             Expanded(
                                                               child: Container(
-                                                                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-                                                                alignment: Alignment.centerLeft,
+                                                                padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        16.0,
+                                                                    vertical:
+                                                                        10),
+                                                                alignment: Alignment
+                                                                    .centerLeft,
                                                                 child: Text(
                                                                   '${DateFormat('(hh:mm:s a').format(value[index]["startTime"])} - ${DateFormat('hh:mm:s a)').format(value[index]["endTime"])}',
-                                                                  style: const TextStyle(fontSize: 16),
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          16),
                                                                 ),
                                                               ),
                                                             ),
                                                             Divider(
-                                                              color: Colors.grey.shade600,
+                                                              color: Colors.grey
+                                                                  .shade600,
                                                               indent: 18,
                                                               endIndent: 25,
                                                               thickness: 0.2,
@@ -338,30 +457,46 @@ void showEventsModalBottomSheet({
                                                             ),
                                                             Expanded(
                                                               child: Container(
-                                                                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                                                                padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        16.0,
+                                                                    vertical:
+                                                                        10.0),
                                                                 child: Row(
                                                                   children: [
                                                                     const Flexible(
-                                                                      child: Text(
+                                                                      child:
+                                                                          Text(
                                                                         "Working Time : ",
-                                                                        style: TextStyle(
-                                                                          fontSize: 15,
-                                                                          fontWeight: FontWeight.w500,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              15,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
                                                                         ),
                                                                       ),
                                                                     ),
                                                                     Flexible(
-                                                                      child: Text(
+                                                                      child:
+                                                                          Text(
                                                                         value[index]["endTime"]
                                                                             .difference(value[index]["startTime"])
                                                                             .toString()
                                                                             .split(".")[0],
-                                                                        style: TextStyle(
-                                                                          fontSize: 14,
-                                                                          color: Colors.grey.shade600,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              14,
+                                                                          color: Colors
+                                                                              .grey
+                                                                              .shade600,
                                                                         ),
-                                                                        overflow: TextOverflow.ellipsis,
-                                                                        maxLines: 2,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        maxLines:
+                                                                            2,
                                                                       ),
                                                                     ),
                                                                   ],
@@ -379,40 +514,63 @@ void showEventsModalBottomSheet({
                                                         onTap: () {
                                                           // consolelog("dateTime :: ${value[index]["date"]}");
                                                           showDialog(
-                                                              barrierDismissible: false,
-                                                              barrierColor: Colors.black.withOpacity(0.7),
+                                                              barrierDismissible:
+                                                                  false,
+                                                              barrierColor: Colors
+                                                                  .black
+                                                                  .withOpacity(
+                                                                      0.7),
                                                               context: context,
-                                                              builder: (context) {
+                                                              builder:
+                                                                  (context) {
                                                                 return Dialog(
                                                                   elevation: 0,
-                                                                  child: Container(
-                                                                    padding: const EdgeInsets.all(16.0),
-                                                                    constraints: const BoxConstraints(maxHeight: 200, minHeight: 150),
-                                                                    child: Column(
+                                                                  child:
+                                                                      Container(
+                                                                    padding: const EdgeInsets
+                                                                            .all(
+                                                                        16.0),
+                                                                    constraints: const BoxConstraints(
+                                                                        maxHeight:
+                                                                            200,
+                                                                        minHeight:
+                                                                            150),
+                                                                    child:
+                                                                        Column(
                                                                       children: [
                                                                         Text(
                                                                           "Delete Attendance",
-                                                                          style: TextStyle(
-                                                                            fontSize: 17.0,
-                                                                            fontFamily: GoogleFonts.poppins().fontFamily,
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                17.0,
+                                                                            fontFamily:
+                                                                                GoogleFonts.poppins().fontFamily,
                                                                           ),
                                                                         ),
                                                                         const SizedBox(
-                                                                          height: 20,
+                                                                          height:
+                                                                              20,
                                                                         ),
                                                                         Text(
                                                                           "Are you sure you want to delete the attendance?",
-                                                                          textAlign: TextAlign.center,
-                                                                          style: TextStyle(
-                                                                            fontSize: 14.0,
-                                                                            fontFamily: GoogleFonts.poppins().fontFamily,
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontFamily:
+                                                                                GoogleFonts.poppins().fontFamily,
                                                                           ),
                                                                         ),
                                                                         const SizedBox(
-                                                                          height: 20,
+                                                                          height:
+                                                                              20,
                                                                         ),
                                                                         Row(
-                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceAround,
                                                                           children: [
                                                                             ElevatedButton(
                                                                               onPressed: () {
@@ -420,10 +578,7 @@ void showEventsModalBottomSheet({
                                                                                 attendanceModelBox?.toMap().entries.forEach((e) {
                                                                                   if (e.key == dateTime.toString()) {
                                                                                     // consolelog(e.value);
-                                                                                    List filteredData = List.of(e.value)
-                                                                                        .where((element) =>
-                                                                                            element["startTime"] != value[index]["startTime"])
-                                                                                        .toList();
+                                                                                    List filteredData = List.of(e.value).where((element) => element["startTime"] != value[index]["startTime"]).toList();
                                                                                     // consolelog(filteredData);
                                                                                     if (filteredData.isNotEmpty) {
                                                                                       attendanceModelBox?.put(e.key, filteredData);
@@ -440,8 +595,7 @@ void showEventsModalBottomSheet({
                                                                                   }
                                                                                   // consolelog(attendanceModelBox?.get(e.key));
                                                                                 });
-                                                                                attendanceDataSource =
-                                                                                    AttendanceDataSource(data: selectedEvents?.value);
+                                                                                attendanceDataSource = AttendanceDataSource(data: selectedEvents?.value);
 
                                                                                 Navigator.pop(context);
                                                                               },
@@ -476,14 +630,17 @@ void showEventsModalBottomSheet({
                                                         child: Container(
                                                           height: 25,
                                                           width: 25,
-                                                          decoration: const BoxDecoration(
+                                                          decoration:
+                                                              const BoxDecoration(
                                                             color: Colors.red,
-                                                            shape: BoxShape.circle,
+                                                            shape:
+                                                                BoxShape.circle,
                                                           ),
                                                           child: const Center(
                                                             child: Icon(
                                                               Icons.close,
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               size: 18.0,
                                                             ),
                                                           ),
@@ -501,7 +658,9 @@ void showEventsModalBottomSheet({
                                   ),
                                 ],
                               )
-                        : rangeSelectionMode == RangeSelectionMode.toggledOff && focusedDateUTC == start && checkInOrOutBox?.get("isCheckIn") == false
+                        : rangeSelectionMode == RangeSelectionMode.toggledOff &&
+                                focusedDateUTC == start &&
+                                checkInOrOutBox?.get("isCheckIn") == false
                             ? Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -519,11 +678,20 @@ void showEventsModalBottomSheet({
                                   rowChoiceOptions(
                                     title: "Holiday",
                                     iconText: "Paid",
-                                    isIcon: attendanceModelBox?.containsKey(start.toString()) == true,
-                                    isPaid: attendanceModelBox?.containsKey(start.toString()) == true &&
-                                        attendanceModelBox?.get(start.toString())[0]["isPaid"] == true,
+                                    isIcon: attendanceModelBox
+                                            ?.containsKey(start.toString()) ==
+                                        true,
+                                    isPaid: attendanceModelBox?.containsKey(
+                                                start.toString()) ==
+                                            true &&
+                                        attendanceModelBox
+                                                    ?.get(start.toString())[0]
+                                                ["isPaid"] ==
+                                            true,
                                     onTap: () {
-                                      if (attendanceModelBox?.containsKey(start.toString()) == false) {
+                                      if (attendanceModelBox
+                                              ?.containsKey(start.toString()) ==
+                                          false) {
                                         attendanceModelBox?.put(
                                           start.toString(),
                                           [
@@ -535,7 +703,8 @@ void showEventsModalBottomSheet({
                                             },
                                           ],
                                         );
-                                        selectedEvents?.value = Events.getEventsForDay(start);
+                                        selectedEvents?.value =
+                                            Events.getEventsForDay(start);
                                       }
                                     },
                                   ),
@@ -545,11 +714,20 @@ void showEventsModalBottomSheet({
                                   rowChoiceOptions(
                                       title: "Leave",
                                       iconText: "Not Paid",
-                                      isIcon: attendanceModelBox?.containsKey(start.toString()) == true,
-                                      isPaid: attendanceModelBox?.containsKey(start.toString()) == true &&
-                                          attendanceModelBox?.get(start.toString())[0]["isPaid"] == false,
+                                      isIcon: attendanceModelBox
+                                              ?.containsKey(start.toString()) ==
+                                          true,
+                                      isPaid: attendanceModelBox?.containsKey(
+                                                  start.toString()) ==
+                                              true &&
+                                          attendanceModelBox
+                                                      ?.get(start.toString())[0]
+                                                  ["isPaid"] ==
+                                              false,
                                       onTap: () {
-                                        if (attendanceModelBox?.containsKey(start.toString()) == false) {
+                                        if (attendanceModelBox?.containsKey(
+                                                start.toString()) ==
+                                            false) {
                                           attendanceModelBox?.put(
                                             start.toString(),
                                             [
@@ -561,7 +739,8 @@ void showEventsModalBottomSheet({
                                               },
                                             ],
                                           );
-                                          selectedEvents?.value = Events.getEventsForDay(start);
+                                          selectedEvents?.value =
+                                              Events.getEventsForDay(start);
                                         }
                                       }),
                                 ],

@@ -23,7 +23,8 @@ class HomeBody extends StatefulWidget {
   State<HomeBody> createState() => _HomeBodyState();
 }
 
-class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin {
+class _HomeBodyState extends State<HomeBody>
+    with SingleTickerProviderStateMixin {
   var prevDateUtc;
   @override
   void initState() {
@@ -38,7 +39,10 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
     if (checkInOrOutBox?.get("isCheckIn") == true) {
       if (attendanceModelBox?.containsKey(prevDateUtc.toString()) ?? false) {
         consolelog(attendanceModelBox?.get(prevDateUtc.toString()));
-        if (List.of(attendanceModelBox?.get(prevDateUtc.toString())).reversed.toList()[0]["endTime"] == null) {
+        if (List.of(attendanceModelBox?.get(prevDateUtc.toString()))
+                .reversed
+                .toList()[0]["endTime"] ==
+            null) {
           List data = attendanceModelBox?.get(prevDateUtc.toString());
           data.removeWhere((element) => element["endTime"] == null);
           if (data.isEmpty) {
@@ -53,7 +57,8 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
     }
 
     initializeDateFormatting('ne', null);
-    animationController = AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
     animation = Tween(begin: 0.2, end: 1.0).animate(animationController);
 
     animationController.addListener(() {
@@ -116,9 +121,14 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
                                 ),
                               ),
                               Text(
-                                DateTime.now().difference(value).toString().split(".")[0],
+                                DateTime.now()
+                                    .difference(value)
+                                    .toString()
+                                    .split(".")[0],
                                 style: TextStyle(
-                                  color: Provider.of<ThemeProvider>(context, listen: false).isDarkTheme
+                                  color: Provider.of<ThemeProvider>(context,
+                                              listen: false)
+                                          .isDarkTheme
                                       ? const Color(0xff779EE5)
                                       : AColors.kPrimaryColor,
                                   fontSize: 20.0,
@@ -134,25 +144,38 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
             ),
             const SizedBox(height: 30.0),
             ValueListenableBuilder<Box>(
-                valueListenable: checkInOrOutBox?.listenable() ?? ValueListenable as ValueListenable<Box>,
+                valueListenable: checkInOrOutBox?.listenable() ??
+                    ValueListenable as ValueListenable<Box>,
                 builder: (context, value, _) {
                   // log("value :: ${value.get("isCheckIn")}");
                   return GestureDetector(
                     onTap: () async {
                       final today = DateTime.now();
-                      final dateTime = DateTime.utc(today.year, today.month, today.day);
-                      if (attendanceModelBox?.containsKey(dateTime.toString()) == false ||
-                          (attendanceModelBox?.containsKey(dateTime.toString()) == true &&
-                              attendanceModelBox?.get(dateTime.toString())[0]["isPaid"] == null)) {
+                      final dateTime =
+                          DateTime.utc(today.year, today.month, today.day);
+
+                      if (attendanceModelBox
+                                  ?.containsKey(dateTime.toString()) ==
+                              false ||
+                          (attendanceModelBox
+                                      ?.containsKey(dateTime.toString()) ==
+                                  true &&
+                              attendanceModelBox?.get(dateTime.toString())[0]
+                                      ["isPaid"] ==
+                                  null)) {
                         final isAuthenticated = await LocalAuth.authenticate();
 
                         if (isAuthenticated) {
-                          List data = attendanceModelBox?.get(dateTime.toString()) ?? [];
+                          List data =
+                              attendanceModelBox?.get(dateTime.toString()) ??
+                                  [];
 
                           if (checkInOrOutBox?.get("isCheckIn") == true) {
                             timer?.cancel();
                             checkInOrOutBox?.put("isCheckIn", false);
-                            if (attendanceModelBox?.containsKey(dateTime.toString()) == true) {
+                            if (attendanceModelBox
+                                    ?.containsKey(dateTime.toString()) ==
+                                true) {
                               List newData = data.map((val) {
                                 if (val["endTime"] == null) {
                                   val["endTime"] = today;
@@ -160,14 +183,19 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
                                 }
                                 return val;
                               }).toList();
-                              attendanceModelBox?.put(dateTime.toString(), newData);
+                              attendanceModelBox?.put(
+                                  dateTime.toString(), newData);
                             }
                           } else {
                             checkInOrOutBox?.put("isCheckIn", true);
 
-                            if (attendanceModelBox?.containsKey(dateTime.toString()) == true) {
-                              List data = attendanceModelBox?.get(dateTime.toString());
-                              data.removeWhere((element) => element["endTime"] == null);
+                            if (attendanceModelBox
+                                    ?.containsKey(dateTime.toString()) ==
+                                true) {
+                              List data =
+                                  attendanceModelBox?.get(dateTime.toString());
+                              data.removeWhere(
+                                  (element) => element["endTime"] == null);
 
                               data.add(
                                 {
@@ -176,7 +204,8 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
                                   "endTime": null,
                                 },
                               );
-                              attendanceModelBox?.put(dateTime.toString(), data);
+                              attendanceModelBox?.put(
+                                  dateTime.toString(), data);
                             } else {
                               attendanceModelBox?.put(
                                 dateTime.toString(),
@@ -191,8 +220,10 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
                             }
                           }
                           GetTime().getTimeData();
-                          selectedEvents?.value = Events.getEventsForDay(dateTime);
-                          attendanceDataSource = AttendanceDataSource(data: selectedEvents?.value);
+                          selectedEvents?.value =
+                              Events.getEventsForDay(dateTime);
+                          attendanceDataSource =
+                              AttendanceDataSource(data: selectedEvents?.value);
                         }
                       }
                     },
@@ -207,19 +238,23 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
                             ? [
                                 BoxShadow(
                                   blurRadius: animation.value * 20,
-                                  color: const Color(0xff779EE5).withOpacity(1.0 - (animation.value * 0.3)),
+                                  color: const Color(0xff779EE5).withOpacity(
+                                      1.0 - (animation.value * 0.3)),
                                   spreadRadius: 0,
                                 ),
                                 BoxShadow(
                                   blurRadius: animation.value * 20,
-                                  color: const Color(0xffD44358).withOpacity(1.0 - (animation.value * 0.3)),
+                                  color: const Color(0xffD44358).withOpacity(
+                                      1.0 - (animation.value * 0.3)),
                                   spreadRadius: 0,
                                 )
                               ]
                             : [],
                       ),
                       child: Image.asset(
-                        value.get("isCheckIn") == false ? "assets/images/clock_in_scan.png" : "assets/images/clock_out_scan.png",
+                        value.get("isCheckIn") == false
+                            ? "assets/images/clock_in_scan.png"
+                            : "assets/images/clock_out_scan.png",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -241,10 +276,20 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
                     ValueListenableBuilder(
                       valueListenable: attendanceModelBox!.listenable(),
                       builder: (context, value, _) => Text(
-                        attendanceModelBox?.containsKey(focusedDateUTC.toString()) == true &&
-                                List.from(attendanceModelBox?.get(focusedDateUTC.toString())).reversed.toList()[0]["isPaid"] == null
-                            ? DateFormat.Hm().format(
-                                List.from(attendanceModelBox?.get(focusedDateUTC.toString()) ?? DateTime.now()).reversed.toList()[0]["startTime"])
+                        attendanceModelBox?.containsKey(
+                                        focusedDateUTC.toString()) ==
+                                    true &&
+                                List.from(attendanceModelBox
+                                            ?.get(focusedDateUTC.toString()))
+                                        .reversed
+                                        .toList()[0]["isPaid"] ==
+                                    null
+                            ? DateFormat.Hm().format(List.from(
+                                    attendanceModelBox
+                                            ?.get(focusedDateUTC.toString()) ??
+                                        DateTime.now())
+                                .reversed
+                                .toList()[0]["startTime"])
                             : "--:--",
                         style: const TextStyle(
                           fontSize: 22.0,
@@ -274,11 +319,20 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
                       valueListenable: attendanceModelBox!.listenable(),
                       builder: (context, box, _) => Text(
                         checkInOrOutBox?.get("isCheckIn") == false &&
-                                attendanceModelBox?.containsKey(focusedDateUTC.toString()) == true &&
-                                attendanceModelBox?.get(focusedDateUTC.toString()).reversed.toList()[0]["isPaid"] == null
+                                attendanceModelBox?.containsKey(
+                                        focusedDateUTC.toString()) ==
+                                    true &&
+                                attendanceModelBox
+                                        ?.get(focusedDateUTC.toString())
+                                        .reversed
+                                        .toList()[0]["isPaid"] ==
+                                    null
                             ? DateFormat.Hm()
-                                .format(
-                                    List.from(attendanceModelBox?.get(focusedDateUTC.toString())).reversed.toList()[0]["endTime"] ?? DateTime.now())
+                                .format(List.from(attendanceModelBox
+                                            ?.get(focusedDateUTC.toString()))
+                                        .reversed
+                                        .toList()[0]["endTime"] ??
+                                    DateTime.now())
                                 .toString()
                             : "--:--",
                         style: const TextStyle(
@@ -308,12 +362,27 @@ class _HomeBodyState extends State<HomeBody> with SingleTickerProviderStateMixin
                     ValueListenableBuilder(
                         valueListenable: attendanceModelBox!.listenable(),
                         builder: (context, box, _) {
-                          if (attendanceModelBox?.containsKey(focusedDateUTC.toString()) == true &&
-                              List.from(attendanceModelBox?.get(focusedDateUTC.toString())).reversed.toList()[0]["isPaid"] == null) {
-                            dynamic endTime = List.from(attendanceModelBox?.get(focusedDateUTC.toString())).reversed.toList()[0]["endTime"];
-                            dynamic startTime = List.from(attendanceModelBox?.get(focusedDateUTC.toString())).reversed.toList()[0]["startTime"];
+                          if (attendanceModelBox?.containsKey(
+                                      focusedDateUTC.toString()) ==
+                                  true &&
+                              List.from(attendanceModelBox
+                                          ?.get(focusedDateUTC.toString()))
+                                      .reversed
+                                      .toList()[0]["isPaid"] ==
+                                  null) {
+                            dynamic endTime = List.from(attendanceModelBox
+                                    ?.get(focusedDateUTC.toString()))
+                                .reversed
+                                .toList()[0]["endTime"];
+                            dynamic startTime = List.from(attendanceModelBox
+                                    ?.get(focusedDateUTC.toString()))
+                                .reversed
+                                .toList()[0]["startTime"];
                             return Text(
-                              checkInOrOutBox?.get("isCheckIn") == false && attendanceModelBox?.containsKey(focusedDateUTC.toString()) == true
+                              checkInOrOutBox?.get("isCheckIn") == false &&
+                                      attendanceModelBox?.containsKey(
+                                              focusedDateUTC.toString()) ==
+                                          true
                                   ? "${endTime.difference(startTime).inHours.toString().padLeft(2, "0")}:${endTime.difference(startTime).inMinutes.remainder(60).toString().padLeft(2, "0")}"
                                   : "--:--",
                               style: const TextStyle(
