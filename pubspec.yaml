@@ -43,7 +43,7 @@ dependencies:
   intl: ^0.17.0
   hive_flutter: ^1.1.0
   table_calendar: ^3.0.8
-  google_fonts: ^3.0.1
+  google_fonts: ^5.1.0
   syncfusion_flutter_datagrid: ^20.4.42
   csv: ^5.0.1
   syncfusion_flutter_datagrid_export: ^20.4.42-beta
