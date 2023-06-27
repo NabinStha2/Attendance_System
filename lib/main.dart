@@ -35,7 +35,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ThemeProvider>(
             create: (_) => ThemeProvider()
               ..darkTheme = themeBox?.get("isDarkTheme") ?? false),
-        ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
+        ChangeNotifierProvider<HomeProvider>(
+          create: (_) => HomeProvider(),
+        ),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, _, child) {

@@ -25,7 +25,7 @@ class HomeBody extends StatefulWidget {
 
 class _HomeBodyState extends State<HomeBody>
     with SingleTickerProviderStateMixin {
-  var prevDateUtc;
+  DateTime? prevDateUtc;
   @override
   void initState() {
     super.initState();
@@ -59,6 +59,7 @@ class _HomeBodyState extends State<HomeBody>
     initializeDateFormatting('ne', null);
     animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
+
     animation = Tween(begin: 0.2, end: 1.0).animate(animationController);
 
     animationController.addListener(() {
